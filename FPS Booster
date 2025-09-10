@@ -1,0 +1,71 @@
+--// FPS Booster para Mobile (Samsung A12) \\--
+local Lighting = game:GetService("Lighting")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local StarterGui = game:GetService("StarterGui")
+local LocalPlayer = Players.LocalPlayer
+
+-- Notificação
+StarterGui:SetCore("SendNotification", {
+    Title = "FPS Booster",
+    Text = "Otimizações aplicadas com sucesso!",
+    Duration = 5
+})
+
+-- Função: remover partículas
+local function clearParticles()
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Fire") or v:IsA("Smoke") then
+            v.Enabled = false
+        end
+    end
+end
+
+-- Função: otimizar personagens
+local function optimizeCharacters()
+    for _, p in pairs(Players:GetPlayers()) do
+        if p.Character then
+            for _, part in pairs(p.Character:GetDescendants()) do
+                if part:IsA("Accessory") or part:IsA("Hat") or part:IsA("ShirtGraphic") then
+                    part:Destroy()
+                elseif part:IsA("Decal") or part:IsA("Texture") then
+                    part.Transparency = 1
+                end
+            end
+        end
+    end
+end
+
+-- Função: otimizar iluminação
+local function optimizeLighting()
+    Lighting.GlobalShadows = false
+    Lighting.FogEnd = 9e9
+    Lighting.Brightness = 1
+    Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+
+    for _, effect in pairs(Lighting:GetChildren()) do
+        if effect:IsA("BlurEffect") or effect:IsA("SunRaysEffect") or effect:IsA("BloomEffect") or effect:IsA("ColorCorrectionEffect") then
+            effect.Enabled = false
+        end
+    end
+end
+
+-- Função: otimizar terreno
+local function optimizeTerrain()
+    workspace.Terrain.WaterWaveSize = 0
+    workspace.Terrain.WaterWaveSpeed = 0
+    workspace.Terrain.WaterReflectance = 0
+    workspace.Terrain.WaterTransparency = 0
+end
+
+-- Aplicar otimizações iniciais
+clearParticles()
+optimizeCharacters()
+optimizeLighting()
+optimizeTerrain()
+
+-- Loop: manter otimização rodando
+RunService.Heartbeat:Connect(function()
+    clearParticles()
+    optimizeCharacters()
+end)
